@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: forced_app_versions
+#
+#  id           :integer          not null, primary key
+#  client       :integer
+#  version      :string(255)
+#  force_update :boolean          default(FALSE)
+#  changelog    :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: 1
+  version: MyString
+  force_update: false
+  changelog: MyText
+
+two:
+  client: 1
+  version: MyString
+  force_update: false
+  changelog: MyText
