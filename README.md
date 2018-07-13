@@ -6,15 +6,40 @@ Read the link below to get some insight.
 
 * [Handling Force Update on Mobile Apps / Rusty Neuron](https://rustyneuron.net/2018/07/12/handling-force-update-on-mobile-apps/)
 
-## Usage
+## Installation
+Add this line to your application's Gemfile:
 
-Module needs to get the coming request to prepare the response. As long as request headers contains `X-Platform` and `X-Client-Version`, you are good to go.
+```ruby
+gem 'forced'
+```
 
-After adding `forced` to your Gemfile, add the line below to your routes file.
+And then execute:
+```bash
+$ bundle
+```
+
+Or install it yourself as:
+```bash
+$ gem install forced
+```
+
+And then, run:
+```bash
+$ bundle exec rails db:migrate
+```
+
+After all these are done, add the line below to your routes file.
 
 ```ruby
 mount Forced::Engine => "/forced"
 ```
+
+You are all set!
+
+## Usage
+
+Module needs to get the coming request to prepare the response. As long as request headers contains `X-Platform` and `X-Client-Version`, you are good to go.
+
 
 Then send a `GET` request to `{{url}}/forced/status`. This will return the below JSON.
 
@@ -51,23 +76,6 @@ Forced::AppVersion.new
 ## Responses
 
 All available under `Forced::MESSAGES` hash table. You can override the values as you wish. Also checkout the `check_update_status` private method in `base.rb` to understand the cases.
-
-## Installation
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'forced'
-```
-
-And then execute:
-```bash
-$ bundle
-```
-
-Or install it yourself as:
-```bash
-$ gem install forced
-```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
