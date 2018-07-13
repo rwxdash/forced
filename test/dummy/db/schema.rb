@@ -10,15 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_13_160038) do
-
-  create_table "forced_app_versions", force: :cascade do |t|
-    t.integer "client"
-    t.string "version", limit: 255
-    t.boolean "force_update", default: false
-    t.text "changelog"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end

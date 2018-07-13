@@ -25,6 +25,10 @@ $ gem install forced
 
 And then, run:
 ```bash
+# this will create a migration file.
+$ bundle exec rails g forced:install
+
+# this will migrate it.
 $ bundle exec rails db:migrate
 ```
 
