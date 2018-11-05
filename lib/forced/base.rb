@@ -5,7 +5,7 @@ module Forced
         @client_platform = get_client_platform(request)
         @client_version = get_client_version(request)
 
-        @client_version_records = (@client_platform && @client_version ? Forced::AppVersion.where(client: @client_platform) : nil)
+        @client_version_records = (@client_platform && @client_version ? Forced::Client.find_by!(identifier: @client_platform).versions : nil)
         @versions_after_client = @client_version_records&.where('version > ?', @client_version)
         @latest_app_version = @client_version_records&.last
         @any_forced_in_the_future = @versions_after_client&.pluck(:force_update)&.any?

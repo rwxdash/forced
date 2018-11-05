@@ -14,10 +14,10 @@ module Forced
 
     source_root File.expand_path('templates', __dir__)
 
-    desc "Generates (but does not run) a migration to add a forced_app_versions table."
+    desc "Generates (but does not run) a migration to add a forced_app_clients and forced_app_versions table."
 
     def create_migration_file
-      add_paper_trail_migration('create_forced_app_versions')
+      add_forced_app_migration('create_forced_tables')
     end
 
     def self.next_migration_number(dirname)
@@ -26,7 +26,7 @@ module Forced
 
     protected
 
-    def add_paper_trail_migration(template)
+    def add_forced_app_migration(template)
       migration_dir = File.expand_path('db/migrate')
 
       if self.class.migration_exists?(migration_dir, template)
@@ -36,7 +36,7 @@ module Forced
           "#{template}.rb.erb",
           "db/migrate/#{template}.rb",
           migration_version: migration_version,
-          forced_app_versions_table_options: forced_app_versions_table_options
+          forced_table_options: forced_table_options
         )
       end
     end
@@ -54,7 +54,7 @@ module Forced
       MYSQL_ADAPTERS.include?(ActiveRecord::Base.connection.class.name)
     end
 
-    def forced_app_versions_table_options
+    def forced_table_options
       if mysql?
         ', { options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci" }'
       else
