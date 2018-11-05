@@ -38,14 +38,40 @@ After all these are done, add the line below to your routes file.
 mount Forced::Engine => "/forced"
 ```
 
-You are all set!
+You endpoint and tables are set!
 
 ## Usage
 
-Module needs to get the coming request to prepare the response. As long as request headers contains `X-Platform` and `X-Client-Version`, you are good to go.
+Add `is_versionable` to any model you want to keep as a parent for `Forced::Client` model.
 
+For example, imagine you have a `Brand` model to identify each application. Adding the line below to your model, will hold a relation for `has_many :clients'
 
-Then send a `GET` request to `{{url}}/forced/status`. This will return the below JSON.
+```ruby
+class Brand < ApplicationRecord
+  # ...
+
+  is_versionable
+
+  # ...
+end
+```
+
+Then, you can call your clients with;
+
+```ruby
+Brand.find(:id).clients
+# => #<ActiveRecord::Associations::CollectionProxy [...]>
+
+Brand.find(:id).clients.to_sql
+# => "SELECT \"forced_clients\".* FROM \"forced_clients\" WHERE \"forced_clients\".\"item_id\" = :id AND \"forced_clients\".\"item_type\" = 'Brand'"
+```
+
+The Forced module needs to get the coming request to prepare the response. As long as request headers contains `X-Platform` and `X-Client-Version`, you are good to go.
+
+* `X-Platform` will need to match with `Forced::Client identifier:string` attribute in order to search the available versions.
+* `X-Client-Version` should contain a semantic version number, e.g. `1.0.0`
+
+Then send a `GET` request to `{{url}}/forced/status`. This will return the below JSON. (`/forced` is where you mounted the engine!)
 
 ```json
 {
@@ -61,25 +87,25 @@ If you want to return some version of this hash, you can access the response by 
 response = Forced::Response.call(request)
 ```
 
-Client enum is `[:android, :ios]` at default. To change it, open up an initializer for `Forced` module and change the constant named `CLIENT_ENUM`.
+To create a record, you can use your Rails console. `Forced::Client`
 
 ```ruby
-module Forced
-  CLIENT_ENUM = [:android, :ios]
-end
-```
+Forced::Client.new
+# => #<Forced::Client id: nil, item_type: nil, item_id: nil, identifier: nil, deleted_at: nil, created_at: nil, updated_at: nil>
 
-To create a record, you can use your Rails console.
-
-```ruby
-Forced::AppVersion.new
-
-# => #<Forced::AppVersion id: nil, client: nil, version: nil, force_update: false, changelog: nil, created_at: nil, updated_at: nil>
+Forced::Version.new
+# => #<Forced::Version id: nil, client_id: nil, version: nil, force_update: false, changelog: nil, deleted_at: nil, created_at: nil, updated_at: nil>
 ```
 
 ## Responses
 
 All available under `Forced::MESSAGES` hash table. You can override the values as you wish. Also checkout the `check_update_status` private method in `base.rb` to understand the cases.
+
+## Upgrading from 0.2.0 to 1.0.0
+
+New migrations and tables have a different name, so, unless you are using custom calls, you can optionally and gradually create a migration for old table and move your records into the new table.
+
+If you had some trouble or found something that wasn't suppose to be there, feel free to open an issue.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

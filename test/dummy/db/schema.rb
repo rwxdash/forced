@@ -10,6 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2018_11_05_210218) do
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "forced_app_versions", force: :cascade do |t|
+    t.integer "client"
+    t.string "version", limit: 255
+    t.boolean "force_update", default: false
+    t.text "changelog"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "forced_clients", force: :cascade do |t|
+    t.string "item_type"
+    t.integer "item_id"
+    t.string "identifier"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifier"], name: "index_forced_clients_on_identifier", unique: true
+    t.index ["item_type", "item_id"], name: "index_forced_clients_on_item_type_and_item_id"
+  end
+
+  create_table "forced_versions", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "version", limit: 255
+    t.boolean "force_update", default: false
+    t.text "changelog"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_forced_versions_on_client_id"
+  end
 
 end
