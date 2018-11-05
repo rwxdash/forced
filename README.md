@@ -44,7 +44,7 @@ You endpoint and tables are set!
 
 Add `is_versionable` to any model you want to keep as a parent for `Forced::Client` model.
 
-For example, imagine you have a `Brand` model to identify each application. Adding the line below to your model, will hold a relation for `has_many :clients'
+For example, imagine you have a `Brand` model to identify each application. Adding the line below to your model, will hold a relation for `has_many :clients`
 
 ```ruby
 class Brand < ApplicationRecord
@@ -87,7 +87,7 @@ If you want to return some version of this hash, you can access the response by 
 response = Forced::Response.call(request)
 ```
 
-To create a record, you can use your Rails console. `Forced::Client`
+To create a record, you can use your Rails console. `Forced::Client` is polymorphic and keeps `foreign_key` and `foreign_type` columns as `item_#`. So, when you are creating a `Forced::Client` instance, use `item:` for your reference column, e.g. `Forced::Client.create(item: Brand.first)`
 
 ```ruby
 Forced::Client.new
