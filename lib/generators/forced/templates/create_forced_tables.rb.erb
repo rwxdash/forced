@@ -20,5 +20,7 @@ class CreateForcedTables < ActiveRecord::Migration<%= migration_version %>
 
       t.timestamps
     end
+
+    add_index :forced_versions, [:client_id, :version], unique: true
   end
 end
