@@ -42,7 +42,9 @@ You endpoint and tables are set!
 
 ## Usage
 
-Add `is_versionable` to any model you want to keep as a parent for `Forced::Client` model.
+If you want a parent for your `Forced::Client` records, you can add the desired parent model `is_versionable`. Beware that both `Forced::Client` to `Forced::Version` relation and `is_versionable` to `Forced::Client` relation are set to `dependent: :destroy`.
+
+The `Forced::Client`'s polymorphic relation is optional as well. So, you can use the gem without setting a parent class relation. It'll work exactly the same.
 
 For example, imagine you have a `Brand` model to identify each application. Adding the line below to your model, will hold a relation for `has_many :clients`
 
@@ -50,6 +52,8 @@ For example, imagine you have a `Brand` model to identify each application. Addi
 class Brand < ApplicationRecord
   # ...
 
+  # If you haven't read the above paragraph, please do.
+  # This is optional.
   is_versionable
 
   # ...

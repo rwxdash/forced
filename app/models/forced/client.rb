@@ -13,8 +13,8 @@
 
 module Forced
   class Client < ApplicationRecord
-    belongs_to :item, polymorphic: true
+    belongs_to :item, polymorphic: true, optional: true
 
-    has_many :versions, class_name: 'Forced::Version', foreign_key: 'client_id'
+    has_many :versions, class_name: 'Forced::Version', foreign_key: 'client_id', dependent: :destroy
   end
 end
