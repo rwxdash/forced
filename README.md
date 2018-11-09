@@ -91,6 +91,26 @@ If you want to return some version of this hash, you can access the response by 
 response = Forced::Response.call(request)
 ```
 
+To change the default response from the mounted endpoint, create a `StatusController` like below.
+
+```ruby
+# In order this to work,
+# you need to create this file in the correct path,
+# that is;
+#
+# app/controllers/forced/status_controller.rb
+
+module Forced
+  class StatusController < ::ApplicationController
+    def index
+      response = Forced::Response.call(request)
+
+      # Do what you want to do with the response hash.
+    end
+  end
+end
+```
+
 To create a record, you can use your Rails console. `Forced::Client` is polymorphic and keeps `foreign_key` and `foreign_type` columns as `item_#`. So, when you are creating a `Forced::Client` instance, use `item:` for your reference column, e.g. `Forced::Client.create(item: Brand.first)`
 
 ```ruby
