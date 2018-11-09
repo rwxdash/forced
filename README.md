@@ -42,7 +42,7 @@ You endpoint and tables are set!
 
 ## Usage
 
-If you want a parent for your `Forced::Client` records, you can add the desired parent model `is_versionable`. Beware that both `Forced::Client` to `Forced::Version` relation and `is_versionable` to `Forced::Client` relation are set to `dependent: :destroy`.
+If you want a parent for your `Forced::Client` records, you can add `is_versionable` to the desired parent model. Beware that both `Forced::Client` to `Forced::Version` relation and `is_versionable` to `Forced::Client` relation are set to `dependent: :destroy`.
 
 The `Forced::Client`'s polymorphic relation is optional as well. So, you can use the gem without setting a parent class relation. It'll work exactly the same.
 
@@ -67,7 +67,7 @@ Brand.find(:id).clients
 # => #<ActiveRecord::Associations::CollectionProxy [...]>
 
 Brand.find(:id).clients.to_sql
-# => "SELECT \"forced_clients\".* FROM \"forced_clients\" WHERE \"forced_clients\".\"item_id\" = :id AND \"forced_clients\".\"item_type\" = 'Brand'"
+# => "SELECT "forced_clients".* FROM "forced_clients" WHERE "forced_clients"."item_id" = :id AND "forced_clients"."item_type" = 'Brand'"
 ```
 
 The Forced module needs to get the coming request to prepare the response. As long as request headers contains `X-Platform` and `X-Client-Version`, you are good to go.
