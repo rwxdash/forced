@@ -125,7 +125,7 @@ Forced::Version.new
 
 All available under `Forced::MESSAGES` hash table. You can override the values as you wish. Also checkout the `check_update_status` private method in `base.rb` to understand the cases.
 
-## Upgrading from 0.2.0 to 1.1.2
+## Upgrading from 0.2.0 to 1.2.0
 
 New migrations and tables have a different name, so, unless you are using custom calls, you can optionally and gradually create a migration for old table and move your records into the new table.
 
