@@ -67,7 +67,7 @@ Brand.find(:id).clients
 # => #<ActiveRecord::Associations::CollectionProxy [...]>
 
 Brand.find(:id).clients.to_sql
-# => "SELECT "forced_clients".* FROM "forced_clients" WHERE "forced_clients"."item_id" = :id AND "forced_clients"."item_type" = 'Brand'"
+# => "SELECT "forced_clients".* FROM "forced_clients" WHERE "forced_clients"."owner_id" = :id AND "forced_clients"."owner_type" = 'Brand'"
 ```
 
 The Forced module needs to get the coming request to prepare the response. As long as request headers contains `X-Platform` and `X-Client-Version`, you are good to go.
@@ -111,11 +111,11 @@ module Forced
 end
 ```
 
-To create a record, you can use your Rails console. `Forced::Client` is polymorphic and keeps `foreign_key` and `foreign_type` columns as `item_#`. So, when you are creating a `Forced::Client` instance, use `item:` for your reference column, e.g. `Forced::Client.create(item: Brand.first)`
+To create a record, you can use your Rails console. `Forced::Client` is polymorphic and keeps `foreign_key` and `foreign_type` columns as `owner_#`. So, when you are creating a `Forced::Client` instance, use `owner:` for your reference column, e.g. `Forced::Client.create(owner: Brand.first)`
 
 ```ruby
 Forced::Client.new
-# => #<Forced::Client id: nil, item_type: nil, item_id: nil, identifier: nil, deleted_at: nil, created_at: nil, updated_at: nil>
+# => #<Forced::Client id: nil, owner_type: nil, owner_id: nil, identifier: nil, deleted_at: nil, created_at: nil, updated_at: nil>
 
 Forced::Version.new
 # => #<Forced::Version id: nil, client_id: nil, version: nil, force_update: false, changelog: nil, deleted_at: nil, created_at: nil, updated_at: nil>
@@ -125,7 +125,7 @@ Forced::Version.new
 
 All available under `Forced::MESSAGES` hash table. You can override the values as you wish. Also checkout the `check_update_status` private method in `base.rb` to understand the cases.
 
-## Upgrading from 0.2.0 to 1.0.0
+## Upgrading from 0.2.0 to 1.1.2
 
 New migrations and tables have a different name, so, unless you are using custom calls, you can optionally and gradually create a migration for old table and move your records into the new table.
 

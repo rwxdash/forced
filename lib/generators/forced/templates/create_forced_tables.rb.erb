@@ -4,7 +4,7 @@
 class CreateForcedTables < ActiveRecord::Migration<%= migration_version %>
   def change
     create_table :forced_clients<%= forced_table_options %> do |t|
-      t.references :item, polymorphic: true, index: true
+      t.references :owner, polymorphic: true, index: true
       t.string :identifier, index: { unique: true }
       t.datetime :deleted_at
 

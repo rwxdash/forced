@@ -28,14 +28,14 @@ ActiveRecord::Schema.define(version: 2018_11_05_210218) do
   end
 
   create_table "forced_clients", force: :cascade do |t|
-    t.string "item_type"
-    t.integer "item_id"
+    t.string "owner_type"
+    t.integer "owner_id"
     t.string "identifier"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identifier"], name: "index_forced_clients_on_identifier", unique: true
-    t.index ["item_type", "item_id"], name: "index_forced_clients_on_item_type_and_item_id"
+    t.index ["owner_type", "owner_id"], name: "index_forced_clients_on_owner_type_and_owner_id"
   end
 
   create_table "forced_versions", force: :cascade do |t|

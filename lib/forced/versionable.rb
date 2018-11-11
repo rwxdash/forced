@@ -3,7 +3,7 @@ module Forced
     extend ActiveSupport::Concern
 
     included do
-      has_many :clients, class_name: 'Forced::Client', as: :item, dependent: :destroy
+      has_many :clients, class_name: 'Forced::Client', as: :owner, dependent: :destroy
     end
   end
 end
