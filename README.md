@@ -4,7 +4,7 @@ This plugin is for Rails APIs that supports multiple mobile applications and wan
 
 Read the link below to get some insight.
 
-* [Handling Force Update on Mobile Apps / Rusty Neuron](https://rustyneuron.net/2018/07/12/handling-force-update-on-mobile-apps/)
+* [Handling Force Update on Mobile Apps / Rusty Neuron](docs/handling-force-update-on-mobile-apps.md)
 
 ## Installation
 Add this line to your application's Gemfile:
